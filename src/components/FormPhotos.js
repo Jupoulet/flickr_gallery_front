@@ -1,0 +1,132 @@
+import React, { useState, useRef } from 'react';
+import { Form, Button, Card, Col, ProgressBar } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
+import endpoints from '../config/endpoints'
+const { BASE_API } = endpoints;
+
+const FormPhotos = ({ single = true, folder }) => {
+    const fileInput = React.createRef()
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [color, setColor] = useState('#0069d9')
+    const [showForm, setShowForm] = useState(false)
+    const [isSubmiting, setIsSubmiting] = useState(false)
+    const [valueProgressBar, setValueProgressBar] = useState(0)
+
+    let interval = null;
+
+    const fillProgressBar = (length) => {
+        let valueProgressBar_ = 0
+        interval = setInterval(() => {
+            if (valueProgressBar_ === 90) { return }
+            setValueProgressBar(valueProgressBar_ + 10)
+            valueProgressBar_ += 10
+        }, 1000 * (1 + length / 10 * 2))
+    }
+
+    const handleChange = (e, name) => {
+        if (name === 'title') {
+            setTitle(e.target.value)
+        }
+        if (name === 'description') {
+            setDescription(e.target.value)
+        }
+    }
+    const handleSubmit = async (e) => {
+        fillProgressBar(fileInput.current.files.length);
+        setIsSubmiting(true)
+        e.preventDefault();
+        var bodyFormData = new FormData();
+        bodyFormData.append('id', window.localStorage.getItem('flickrId'))
+        bodyFormData.append('folderId', folder.id)
+        
+        if (single) {
+            bodyFormData.append('title', title)
+            bodyFormData.append('description', description)
+            bodyFormData.append('path', `/${title}`)
+            bodyFormData.append('photo', fileInput.current.files[0])
+        } else {
+            bodyFormData.append('name', folder.name)
+            bodyFormData.append('path', `/${folder.name}`)
+            for (const file of fileInput.current.files) {
+                bodyFormData.append('photo', file)
+            }
+        }
+
+        await axios ({
+            method: 'post',
+            url: `${BASE_API}/photos${!single ? '/multiple' : ''}`,
+            data: bodyFormData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        setIsSubmiting(false)
+        setValueProgressBar(0)
+        clearInterval(interval)
+        window.location.href = `/admin/folder/${folder.id}`
+    }
+
+    const handleColor = () => {
+        return setColor(color === 'white' ? '#0069d9' : 'white')
+    }
+
+    const RefButton = useRef(null)
+
+    return (
+        <Col>
+            <Button
+                ref={RefButton}
+                variant="light"
+                onMouseEnter={handleColor}
+                onMouseLeave={handleColor}
+                onClick={() => setShowForm(!showForm)}
+                onFocus={() => RefButton.current.blur()}
+            >
+                <FontAwesomeIcon
+                    icon={showForm ? faMinusSquare : faPlusSquare}
+                    color={color}
+                    style={{marginRight: "0.4em"}}
+                />
+                {single ? 'Ajouter une photo' : 'Ajouter des photos'}
+            </Button>
+            {showForm ? 
+                <Card style={{ marginTop: '1em'}}>
+                    <Card.Body>
+                        <Form encType="multipart/form-data" onSubmit={handleSubmit}>
+                            {single ?
+                                <>
+                                    <Form.Group controlId="formTitle">
+                                        <Form.Label>Titre de l'image</Form.Label>
+                                        <Form.Control type="text" placeholder="2019-06 - Famille" name="title" value={title} onChange={(e) => handleChange(e, 'title')} />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="formDescription">
+                                        <Form.Label>Legende de l'image</Form.Label>
+                                        <Form.Control type="text-area" placeholder="Photos de vacances ..." name="description" value={description} onChange={(e) => handleChange(e, 'description')} />
+                                    </Form.Group>
+                                </>
+                            : null }
+
+                            <Form.Group controlId="formFile">
+                                <Form.Control type="file" name="photo" ref={fileInput} multiple={!single}/>
+                            </Form.Group>
+                            <div style={{display: 'flex', alignItems: 'center'}}>
+                                <Button variant="primary" type="submit" className={isSubmiting ? 'disabled' : ''}>
+                                    Valider
+                                </Button>
+                                <ProgressBar variant="success" striped animated now={valueProgressBar} style={{ width: '300px', marginLeft: '0.7em'}} />
+                            </div>  
+
+                        </Form>
+                    </Card.Body>
+                </Card>
+            : null}
+        </Col>
+        
+    );
+}
+
+export default FormPhotos;
