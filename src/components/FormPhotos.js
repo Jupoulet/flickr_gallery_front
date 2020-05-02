@@ -8,8 +8,8 @@ const { BASE_API } = endpoints;
 
 const FormPhotos = ({ single = true, folder, open, update, photo }) => {
     const fileInput = React.createRef()
-    const [title, setTitle] = useState(photo ? photo.title : '')
-    const [description, setDescription] = useState(photo ? photo.description : '')
+    const [title, setTitle] = useState(photo ? photo.title || '' : '')
+    const [description, setDescription] = useState(photo ? photo.description || '' : '')
     const [color, setColor] = useState('#0069d9')
     const [showForm, setShowForm] = useState(open)
     const [isSubmiting, setIsSubmiting] = useState(false)
@@ -35,9 +35,9 @@ const FormPhotos = ({ single = true, folder, open, update, photo }) => {
         }
     }
     const handleSubmit = async (e) => {
-        fillProgressBar(fileInput.current.files.length);
-        setIsSubmiting(true)
         e.preventDefault();
+        fillProgressBar(fileInput.current ? fileInput.current.files.length : 0);
+        setIsSubmiting(true)
         var bodyFormData = new FormData();
         bodyFormData.append('id', window.localStorage.getItem('flickrId'))
         bodyFormData.append('folderId', folder ? folder.id : photo.folderId)
@@ -46,7 +46,9 @@ const FormPhotos = ({ single = true, folder, open, update, photo }) => {
             bodyFormData.append('title', title)
             bodyFormData.append('description', description)
             bodyFormData.append('path', `/${title}`)
-            bodyFormData.append('photo', fileInput.current.files[0])
+            if (fileInput.current) {
+                bodyFormData.append('photo', fileInput.current.files[0])
+            }
         } else {
             bodyFormData.append('name', folder.name)
             bodyFormData.append('path', `/${folder.name}`)
