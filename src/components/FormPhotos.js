@@ -22,7 +22,7 @@ const FormPhotos = ({ single = true, folder, open, update, photo }) => {
         interval = setInterval(() => {
             if (valueProgressBar_ === 90) { return }
             setValueProgressBar(valueProgressBar_ + 10)
-            valueProgressBar_ += 10
+            valueProgressBar_ += 2
         }, 1000 * (1 + length / 10 * 2))
     }
 
