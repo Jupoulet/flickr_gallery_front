@@ -6,12 +6,12 @@ import axios from 'axios'
 import endpoints from '../config/endpoints'
 const { BASE_API } = endpoints;
 
-const FormFolder = () => {
+const FormFolder = ({ folder, open, update }) => {
     const fileInput = React.createRef()
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
+    const [title, setTitle] = useState(folder ? folder.name : '')
+    const [description, setDescription] = useState(folder ? folder.description : '')
     const [color, setColor] = useState('#0069d9')
-    const [showForm, setShowForm] = useState(false)
+    const [showForm, setShowForm] = useState(open)
     const [isSubmiting, setIsSubmiting] = useState(false)
     const [valueProgressBar, setValueProgressBar] = useState(0)
     let interval = null;
@@ -47,8 +47,8 @@ const FormFolder = () => {
         bodyFormData.append('photo', fileInput.current.files[0])
 
         await axios ({
-            method: 'post',
-            url: `${BASE_API}/folders`,
+            method: update ? 'put' : 'post',
+            url: `${BASE_API}/folders${folder ? '/' + folder.id : ''}`,
             data: bodyFormData,
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -59,9 +59,8 @@ const FormFolder = () => {
             setIsSubmiting(false)
             setValueProgressBar(0)
             clearInterval(interval)
-            window.location.href = "/admin"
+            window.location.reload()
         }, 2500)
-        console.log('We finish')
     }
 
     const handleColor = () => {
@@ -85,7 +84,7 @@ const FormFolder = () => {
                     color={color}
                     style={{marginRight: "0.4em"}}
                 />
-                Nouveau dossier
+                {update ? 'Modifier le dossier' : 'Nouveau dossier'}
             </Button>
             {showForm ? 
                 <Card style={{ marginTop: '1em'}}>

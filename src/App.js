@@ -19,6 +19,7 @@ import './App.css';
 import GlobalStyle from './globalStyle';
 import { Container } from 'react-bootstrap';
 import endpoints from './config/endpoints'
+import Photo from './pages/Photo';
 
 const { BASE_URL, BASE_API } = endpoints;
 
@@ -33,7 +34,6 @@ const Wrapper = styled.div`
 
 const App = ({ location, match, history }) => {
   useEffect(() => {
-    console.log('ENVVVV VARIABLES', BASE_API, BASE_URL)
     const isStillLogin = async (id) => {
       let result = await axios.get(`${BASE_API}/flickr/verify_login/${window.localStorage.getItem('flickrId')}`)
       if (!result.data) {
@@ -44,7 +44,7 @@ const App = ({ location, match, history }) => {
     if (/userId/.test(location.search)) {
       window.localStorage.setItem('flickrId', location.search.split('&').find(str => /userId/.test(str)).split('=')[1])
     }
-    if (/admin/.test(location.pathname) && window.localStorage.getItem('flickrId')) {
+    else if (/admin/.test(location.pathname) && window.localStorage.getItem('flickrId')) {
       isStillLogin(window.localStorage.getItem('flickrId'))
     }
   }, [location])
@@ -58,7 +58,8 @@ const App = ({ location, match, history }) => {
               <Wrapper isGallery={/gallery/.test(location.pathname)}>
                     <Route exact path="/"  render={() => <Home template="user" /> } />
                     <Route exact path="/admin" render={() => {
-                      if (window.localStorage.getItem('flickrId')) {
+                      console.log('LOCATION', location)
+                      if (window.localStorage.getItem('flickrId') || /userId/.test(location.search)) {
                         return <Home template="admin" />
                       } else {
                         return <Redirect to="/login" />
@@ -68,6 +69,13 @@ const App = ({ location, match, history }) => {
                     <Route exact path="/admin/folder/:id" render={() => {
                       if (window.localStorage.getItem('flickrId')) {
                         return <Folder template="admin" />
+                      } else {
+                        return <Redirect to="/login" />
+                      }
+                    } } />
+                    <Route exact path="/admin/photo/:id" render={() => {
+                      if (window.localStorage.getItem('flickrId')) {
+                        return <Photo />
                       } else {
                         return <Redirect to="/login" />
                       }

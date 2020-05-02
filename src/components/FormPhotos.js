@@ -6,12 +6,12 @@ import axios from 'axios'
 import endpoints from '../config/endpoints'
 const { BASE_API } = endpoints;
 
-const FormPhotos = ({ single = true, folder }) => {
+const FormPhotos = ({ single = true, folder, open, update, photo }) => {
     const fileInput = React.createRef()
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
+    const [title, setTitle] = useState(photo ? photo.title : '')
+    const [description, setDescription] = useState(photo ? photo.description : '')
     const [color, setColor] = useState('#0069d9')
-    const [showForm, setShowForm] = useState(false)
+    const [showForm, setShowForm] = useState(open)
     const [isSubmiting, setIsSubmiting] = useState(false)
     const [valueProgressBar, setValueProgressBar] = useState(0)
 
@@ -40,7 +40,7 @@ const FormPhotos = ({ single = true, folder }) => {
         e.preventDefault();
         var bodyFormData = new FormData();
         bodyFormData.append('id', window.localStorage.getItem('flickrId'))
-        bodyFormData.append('folderId', folder.id)
+        bodyFormData.append('folderId', folder ? folder.id : photo.folderId)
         
         if (single) {
             bodyFormData.append('title', title)
@@ -56,8 +56,8 @@ const FormPhotos = ({ single = true, folder }) => {
         }
 
         await axios ({
-            method: 'post',
-            url: `${BASE_API}/photos${!single ? '/multiple' : ''}`,
+            method: update ? 'put' : 'post',
+            url: `${BASE_API}/photos${update ? '/' + photo.id : ''}${!single ? '/multiple' : ''}`,
             data: bodyFormData,
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -66,7 +66,7 @@ const FormPhotos = ({ single = true, folder }) => {
         setIsSubmiting(false)
         setValueProgressBar(0)
         clearInterval(interval)
-        window.location.href = `/admin/folder/${folder.id}`
+        window.location.reload()
     }
 
     const handleColor = () => {
@@ -90,7 +90,7 @@ const FormPhotos = ({ single = true, folder }) => {
                     color={color}
                     style={{marginRight: "0.4em"}}
                 />
-                {single ? 'Ajouter une photo' : 'Ajouter des photos'}
+                {single ? `${update ? 'Modifier la photo' : 'Ajouter une photo'}` : `Ajouter des photos`}
             </Button>
             {showForm ? 
                 <Card style={{ marginTop: '1em'}}>
@@ -110,9 +110,9 @@ const FormPhotos = ({ single = true, folder }) => {
                                 </>
                             : null }
 
-                            <Form.Group controlId="formFile">
+                            {!update ? <Form.Group controlId="formFile">
                                 <Form.Control type="file" name="photo" ref={fileInput} multiple={!single}/>
-                            </Form.Group>
+                            </Form.Group> :null}
                             <div style={{display: 'flex', alignItems: 'center'}}>
                                 <Button variant="primary" type="submit" className={isSubmiting ? 'disabled' : ''}>
                                     Valider

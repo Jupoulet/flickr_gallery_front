@@ -29,8 +29,9 @@ const ImgLoader = ({ location, src, folderTitle, folderId }) => {
                     src={src} variant="top" 
                     style= {{
                         opacity: loaded ? '1' : '0',
+                        maxHeight: '100%',
                         maxWidth: src ? '100%' : '100px',
-                        margin: src ? '0' : '1em auto'
+                        margin: src ? 'auto' : '1em auto'
                     }}
                 />
                 {loaded ? null : <ContainerSVG><img src={oval} alt="loader" /></ContainerSVG>}

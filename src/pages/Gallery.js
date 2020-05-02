@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom'
 
 
 const Gallery = ({ items, location }) => {
-    console.log('COUCOU', items)
     items = items || location.state.items
     return (
         <ImageGallery items={items} />

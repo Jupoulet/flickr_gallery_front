@@ -19,7 +19,6 @@ const Container = styled.div`
 `
 
 const SideNavBar = ({ location }) => {
-    console.log('Sidebar location', location)
     return !/gallery/.test(location.pathname) ? (
         <Container>
             <Link to='/'>

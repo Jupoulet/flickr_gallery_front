@@ -20,12 +20,12 @@ const Home = ({
 
     const generateFolders = () => {
         const arrToReturn = [];
-        console.log('Folders', folders)
 
         folders.map((folder) => {
             arrToReturn.push(
                 <Col className="col" xs={12} sm={12} md={3} lg={3} key={folder.id}>
                     <Card
+                        template={template}
                         title={folder.name}
                         image={/https/.test(folder.mainPhoto) ? getUrlImage(folder.mainPhoto, 'md') : `https://jup.s3.eu-west-3.amazonaws.com/${folder.mainPhoto}`}
                         description={folder.description}
@@ -37,7 +37,6 @@ const Home = ({
 
         return arrToReturn;
     }
-    console.log('TEMPLATE', template)
     return (
         <>
             {template === 'admin' ? <Row>
