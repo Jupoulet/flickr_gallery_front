@@ -42,6 +42,13 @@ const Folder = ({ template, location, match }) => {
 
     }, [])
 
+    const getNiceIndexesPhotos = (id) => {
+        let index = photos.map(p => p.id).indexOf(id)
+        let firstHalf = [...photos].splice(index, photos.length - 1)
+        let secondHalf = [...photos].splice(0, index);
+        return [...firstHalf, ...secondHalf]
+    }
+
     const generatePhotos = () => {
         const arrToReturn = [];
         photos.map((photo) => {
@@ -50,7 +57,7 @@ const Folder = ({ template, location, match }) => {
                     {template !== 'admin' ?
                         <Link to={{
                             pathname: `/gallery/${folder.id}`,
-                            state: { items: photos }
+                            state: { items: getNiceIndexesPhotos(photo.id) }
                         }}>
                             <Image rounded src={/https/.test(photo.file) ? getUrlImage(photo.file, 'md') : `https://jup.s3.eu-west-3.amazonaws.com/${folder.mainPhoto}`} style={{ maxWidth: '100%', maxHeight: '100%' }}/>
                         </Link>
