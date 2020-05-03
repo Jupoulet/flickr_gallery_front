@@ -20,8 +20,8 @@ const FormFolder = ({ folder, open, update }) => {
         let valueProgressBar_ = 0
         interval = setInterval(() => {
             if (valueProgressBar_ === 90) { return }
-            setValueProgressBar(valueProgressBar_ + 10)
-            valueProgressBar_ += 2
+            setValueProgressBar(valueProgressBar_ + 0.5)
+            valueProgressBar_ += 0.5
         }, 1000)
     }
 
