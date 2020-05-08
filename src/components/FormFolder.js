@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Form, Button, Card, Col, ProgressBar } from 'react-bootstrap'
+import { Form, Button, Card, Col, ProgressBar, Alert } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
@@ -14,11 +14,14 @@ const FormFolder = ({ folder, open, update }) => {
     const [showForm, setShowForm] = useState(open)
     const [isSubmiting, setIsSubmiting] = useState(false)
     const [valueProgressBar, setValueProgressBar] = useState(0)
+    const [showSuccess, setShowSucess] = useState('')
     let interval = null;
 
     const fillProgressBar = () => {
         let valueProgressBar_ = 0
-        interval = setInterval(() => {
+        interval = setInterval(async () => {
+            let status = await axios.get(`${BASE_API}/status`)
+            setShowSucess(status.data)
             if (valueProgressBar_ === 90) { return }
             setValueProgressBar(valueProgressBar_ + 0.5)
             valueProgressBar_ += 0.5
@@ -55,12 +58,14 @@ const FormFolder = ({ folder, open, update }) => {
             }
         })
 
+        setIsSubmiting(false)
+        setValueProgressBar(0)
         setTimeout(() => {
-            setIsSubmiting(false)
-            setValueProgressBar(0)
             clearInterval(interval)
+            setShowSucess('')
             window.location.reload()
-        }, 2500)
+        }, 3000)
+        // window.location.reload()
     }
 
     const handleColor = () => {
@@ -71,6 +76,7 @@ const FormFolder = ({ folder, open, update }) => {
 
     return (
         <Col>
+            {showSuccess ? <Alert variant={showSuccess === 'Terminé' ? 'success' : 'warning'} style={{position: 'absolute', right: '1em', animation: 'slide 0.5s ease-in-out forwards', transform: 'translateX(150%)'}}>{showSuccess}</Alert> : null}
             <Button
                 ref={RefButton}
                 variant="light"
