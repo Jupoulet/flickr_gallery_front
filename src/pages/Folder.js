@@ -94,7 +94,9 @@ const Folder = ({ template, location, match }) => {
         <>
             <Row>
                 <Col>
-                    <FolderTitle>{folder.name}</FolderTitle>
+                    <div>
+                        <FolderTitle>{folder.name} ({photos.length} photos)</FolderTitle>
+                    </div>  
                 </Col>
             </Row>
             {template === 'admin' ?

@@ -27,6 +27,7 @@ const Home = ({
                     <Card
                         template={template}
                         title={folder.name}
+                        lengthPhotos={folder.photos.length}
                         image={/https/.test(folder.mainPhoto) ? getUrlImage(folder.mainPhoto, 'md') : `https://jup.s3.eu-west-3.amazonaws.com/${folder.mainPhoto}`}
                         description={folder.description}
                         id={folder.id}

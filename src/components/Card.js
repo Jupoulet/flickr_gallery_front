@@ -8,6 +8,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons'
 const Card = ({
     template,
     title,
+    lengthPhotos,
     image,
     description,
     id
@@ -17,6 +18,7 @@ const Card = ({
         <BCard>
             <BCard.Header>
                 <span style={{fontWeight: '800'}}>{title || 'titre manquant'}</span>
+                <span style={{ marginLeft: '1em', fontSize: '0.7rem', fontStyle: 'italic' }}>contient {lengthPhotos} photos</span>
                 {template === 'admin' ? <FontAwesomeIcon
                     icon={faEdit}
                     color="grey"
