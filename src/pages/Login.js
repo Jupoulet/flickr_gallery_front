@@ -35,7 +35,7 @@ const Login = ({ location, history }) => {
             <Row>
                 <Col md={{ span: 6, offset: 4 }} >
                     <Card style={{width: '20em'}}>
-                        {location.state.user || !location.state ? 
+                        {!location.state || location.state.user ?
                             <Card.Body>
                                 <Card.Title>⚠️ Mot de passe requis</Card.Title>
                                 <Form onSubmit={handleSubmit}>

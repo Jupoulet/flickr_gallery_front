@@ -108,7 +108,7 @@ const FormFolder = ({ folder, open, update }) => {
                             </Form.Group>
 
                             <Form.Group controlId="formYear">
-                                <Form.Label>Date (actuelle: {moment (folder.year).format('YYYY')})</Form.Label>
+                                <Form.Label>Date {folder ? `(actuelle: ${moment (folder.year).format('YYYY')})` : null}</Form.Label>
                                 <Form.Control type="date" name="year" value={year} onChange={(e) => handleChange(e, 'year')} />
                             </Form.Group>
 
