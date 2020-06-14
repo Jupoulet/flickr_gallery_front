@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import moment from 'moment';
 import { Form, Button, Card, Col, ProgressBar, Alert } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons'
@@ -10,6 +11,7 @@ const FormFolder = ({ folder, open, update }) => {
     const fileInput = React.createRef()
     const [title, setTitle] = useState(folder ? folder.name : '')
     const [description, setDescription] = useState(folder ? folder.description : '')
+    const [year, setYear] = useState(folder ? folder.year : null)
     const [color, setColor] = useState('#0069d9')
     const [showForm, setShowForm] = useState(open)
     const [isSubmiting, setIsSubmiting] = useState(false)
@@ -35,6 +37,9 @@ const FormFolder = ({ folder, open, update }) => {
         if (name === 'description') {
             setDescription(e.target.value)
         }
+        if (name === 'year') {
+            setYear(e.target.value)
+        }
     }
     const handleSubmit = async (e) => {
         fillProgressBar();
@@ -45,6 +50,7 @@ const FormFolder = ({ folder, open, update }) => {
         var bodyFormData = new FormData();
         bodyFormData.append('name', title)
         bodyFormData.append('description', description)
+        bodyFormData.append('year', year)
         bodyFormData.append('path', `/${title}`)
         bodyFormData.append('id', window.localStorage.getItem('flickrId'))
         bodyFormData.append('photo', fileInput.current.files[0])
@@ -99,6 +105,11 @@ const FormFolder = ({ folder, open, update }) => {
                             <Form.Group controlId="formTitle">
                                 <Form.Label>Nom du dossier</Form.Label>
                                 <Form.Control type="text" placeholder="2019-06 - Famille" name="title" value={title} onChange={(e) => handleChange(e, 'title')} />
+                            </Form.Group>
+
+                            <Form.Group controlId="formYear">
+                                <Form.Label>Date (actuelle: {moment (folder.year).format('YYYY')})</Form.Label>
+                                <Form.Control type="date" name="year" value={year} onChange={(e) => handleChange(e, 'year')} />
                             </Form.Group>
 
                             <Form.Group controlId="formDescription">
