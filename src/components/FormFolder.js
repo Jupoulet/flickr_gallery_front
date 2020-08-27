@@ -7,7 +7,7 @@ import axios from 'axios'
 import endpoints from '../config/endpoints'
 const { BASE_API } = endpoints;
 
-const FormFolder = ({ folder, open, update }) => {
+const FormFolder = ({ folder, open, update, parentId }) => {
     const fileInput = React.createRef()
     const [title, setTitle] = useState(folder ? folder.name : '')
     const [description, setDescription] = useState(folder ? folder.description : '')
@@ -54,6 +54,7 @@ const FormFolder = ({ folder, open, update }) => {
         bodyFormData.append('path', `/${title}`)
         bodyFormData.append('id', window.localStorage.getItem('flickrId'))
         bodyFormData.append('photo', fileInput.current.files[0])
+        if (parentId) bodyFormData.append('parentId', parentId)
 
         await axios ({
             method: update ? 'put' : 'post',
@@ -96,7 +97,7 @@ const FormFolder = ({ folder, open, update }) => {
                     color={color}
                     style={{marginRight: "0.4em"}}
                 />
-                {update ? 'Modifier le dossier' : 'Nouveau dossier'}
+                {update ? 'Modifier le dossier' : parentId ? 'Nouveau sous dossier' : 'Nouveau dossier'}
             </Button>
             {showForm ? 
                 <Card style={{ marginTop: '1em'}}>

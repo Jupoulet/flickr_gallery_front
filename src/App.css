@@ -37,6 +37,11 @@
     box-shadow: none;
 }
 
+/* If thumbnail is disable */
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  max-height: 100vh;
+}
+
 /* .is-visible {
   display: flex;
   height: 210px;

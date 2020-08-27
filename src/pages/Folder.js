@@ -10,6 +10,8 @@ import axios from 'axios';
 import endpoints from '../config/endpoints'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import Card from '../components/Card'
+
 const { BASE_API } = endpoints;
 
 const FolderTitle = styled.h1`
@@ -40,13 +42,26 @@ const Folder = ({ template, location, match }) => {
         }
         fetch();
 
-    }, [])
+    }, [match])
 
     const getNiceIndexesPhotos = (id) => {
         let index = photos.map(p => p.id).indexOf(id)
         let firstHalf = [...photos].splice(index, photos.length - 1)
         let secondHalf = [...photos].splice(0, index);
         return [...firstHalf, ...secondHalf]
+    }
+
+    const generateSubFolders = () => {
+        return folder.children.map((sub_folder) => {
+            return (<Card
+                template={template}
+                title={sub_folder.name}
+                lengthPhotos={sub_folder.photos.length}
+                image={/https/.test(sub_folder.mainPhoto) ? getUrlImage(sub_folder.mainPhoto, 'md') : `https://jup.s3.eu-west-3.amazonaws.com/${sub_folder.mainPhoto}`}
+                description={sub_folder.description}
+                id={sub_folder.id}
+            />)
+        })
     }
 
     const generatePhotos = () => {
@@ -131,10 +146,15 @@ const Folder = ({ template, location, match }) => {
                             <FormPhotos single={false} folder={folder} open/>
                         </Col>
                     </Row>
-                    {/* <Row>
-                    </Row> */}
+                    <Row>
+                        <FormFolder parentId={folder.id} />
+                    </Row>
                 </>
             : null }
+            <Row>
+                {generateSubFolders()}
+            </Row>
+            
             <Row>
                 {generatePhotos()}
             </Row>

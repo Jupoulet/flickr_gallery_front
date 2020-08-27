@@ -40,9 +40,11 @@ const Home = ({
     }
     return (
         <>
-            {template === 'admin' ? <Row>
-                <FormFolder />
-            </Row> : null}
+            {template === 'admin' ? 
+                <Row>
+                    <FormFolder />
+                </Row> 
+            : null}
             <Row>
                 {folders.length ? 
                     generateFolders()
