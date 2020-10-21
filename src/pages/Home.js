@@ -5,6 +5,7 @@ import { Row, Col } from 'react-bootstrap'
 import { getFolders } from '../controllers/API'
 import { Link } from 'react-router-dom';
 import { getUrlImage } from '../controllers/tools'
+import axios from 'axios';
 
 const Home = ({
     template
@@ -38,11 +39,16 @@ const Home = ({
 
         return arrToReturn;
     }
+    const regenerateDB = async () => {
+        await axios (`http://localhost:4000/regen/${window.localStorage.getItem('flickrId')}`)
+    }
+
     return (
         <>
             {template === 'admin' ? 
                 <Row>
                     <FormFolder />
+                    <button onClick={regenerateDB}>GO</button>
                 </Row> 
             : null}
             <Row>
