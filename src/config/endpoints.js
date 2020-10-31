@@ -5,7 +5,7 @@ const endpoints = {
     },
     production: {
         BASE_URL: "https://olivier-picard.com",
-        BASE_API: "https://api.olivier-picard.com"
+        BASE_API: "https://flickr-gallery-api.herokuapp.com"//"https://api.olivier-picard.com"
     }
 }[process.env.NODE_ENV]
 

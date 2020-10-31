@@ -13,6 +13,7 @@ import Folder from './pages/Folder';
 import SideNavBar from './components/SideNavBar';
 import Gallery from './pages/Gallery';
 import Login from './pages/Login';
+import Background from './components/background/Background'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -114,6 +115,7 @@ const App = ({ location, match, history }) => {
                     } />
                     <Route exact path="/login" render={() => <Login /> } />
               </Wrapper>
+              <Background />
             </>
           </Switch>
       </>

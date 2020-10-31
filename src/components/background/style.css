@@ -1,0 +1,44 @@
+@keyframes bg {
+    0% {
+      -moz-transform: translateX(0);
+      -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+      transform: translateX(0);
+    }
+    100% {
+      -moz-transform: translateX(-25%);
+      -webkit-transform: translateX(-25%);
+      -ms-transform: translateX(-25%);
+      transform: translateX(-25%);
+    }
+  }
+  
+  .bg {
+    opacity: 0.9;
+    position: fixed;
+    background: black;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .bg div {
+    position: absolute;
+    height: 100%;
+    width: 150%;
+    background-size: cover;
+    transition: opacity 3s ease-in-out;
+    animation: bg linear infinite 45s;
+    opacity: 0;
+  }
+  
+  .bg div.visible {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .bg div.top {
+    z-index: 2;
+  }
