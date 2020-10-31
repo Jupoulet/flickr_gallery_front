@@ -68,7 +68,7 @@ const App = ({ location, match, history }) => {
       <>
           <Switch>
             <>
-              <SideNavBar />
+              {/* <SideNavBar /> */}
               <Wrapper isGallery={/gallery/.test(location.pathname)}>
                     <Route exact path="/"  render={() => {
                         if (isTokenValid()) {
@@ -115,7 +115,6 @@ const App = ({ location, match, history }) => {
                     } />
                     <Route exact path="/login" render={() => <Login /> } />
               </Wrapper>
-              <Background />
             </>
           </Switch>
       </>

@@ -13,6 +13,9 @@
     }
   }
   
+  body {
+      background-color:unset !important;
+  }
   .bg {
     opacity: 0.9;
     position: fixed;
@@ -28,6 +31,9 @@
     position: absolute;
     height: 100%;
     width: 150%;
+    background-position:center;
+    top: 0px;
+    left:0;
     background-size: cover;
     transition: opacity 3s ease-in-out;
     animation: bg linear infinite 45s;

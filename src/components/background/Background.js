@@ -37,35 +37,35 @@ const Background = () => {
           id="__0"
           style={{
             backgroundImage:
-              'url("https://farm66.staticflickr.com/65535/49930492272_dd0e0f13ce_b.png")'
+              'url("https://farm66.staticflickr.com/65535/49852284466_3e94a4fa7c_k.png")'
           }}
         />,
         <div
           id="__1"
           style={{
             backgroundImage:
-              'url("https://farm66.staticflickr.com/65535/49929699753_a7e6e99609_b.png")'
+              'url("https://farm66.staticflickr.com/65535/49852561857_996482a877_k.png")'
           }}
         />,
         <div
           id="__2"
           style={{
             backgroundImage:
-              'url("https://farm66.staticflickr.com/65535/49930228066_b1d494d04a_b.png")'
+              'url("https://farm66.staticflickr.com/65535/49852258522_83a509acca_k.png")'
           }}
         />,
         <div
           id="__3"
           style={{
             backgroundImage:
-              'url("https://farm66.staticflickr.com/65535/49930176636_486727dbd7_b.png")'
+              'url("https://farm66.staticflickr.com/65535/50236368456_0fd8baa8ff_k.png")'
           }}
         />,
         <div
           id="__4"
           style={{
             backgroundImage:
-              'url("https://farm66.staticflickr.com/65535/49930479492_e2220fbd34_b.png")'
+              'url("https://farm66.staticflickr.com/65535/49855080013_6d68e98350_k.png")'
           }}
         />
     ];

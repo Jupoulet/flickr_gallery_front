@@ -3,14 +3,51 @@ import Card from '../components/Card'
 import FormFolder from '../components/FormFolder'
 import { Row, Col } from 'react-bootstrap'
 import { getFolders } from '../controllers/API'
-import { Link } from 'react-router-dom';
 import { getUrlImage } from '../controllers/tools'
-import axios from 'axios';
+import Title from '../components/title'
+import Background from '../components/background/Background';
+
+import styled, { keyframes } from 'styled-components'
+import Folder from './Folder';
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+
+const FolderContainer = styled.div`
+  animation: 0.5s ${fadeIn} ease-in-out;
+  width: 100%;
+`
+
+const DiscoverButton = styled.button`
+transition: all 0.2s linear;
+    border-radius: 8px;
+    padding: 0.5em 3em;
+    font-size: 24px;
+    font-family: Roboto;
+    border: solid 1px white;
+    color: white;
+    width: fit-content;
+    cursor: pointer;
+    background-color: transparent;
+    margin-top: 2em;
+
+    &:hover {
+        background-color: #0c2461;
+        transform: scale(1.05);
+    }
+`
 
 const Home = ({
     template
 }) => {
     const [folders, setFolders] = useState([])
+    const [showFolders, setShowFolders] = useState(false)
     useEffect(() => {
         let fetch = async () => {
             let folders = await getFolders();
@@ -39,24 +76,30 @@ const Home = ({
 
         return arrToReturn;
     }
-    const regenerateDB = async () => {
-        await axios (`http://localhost:4000/regen/${window.localStorage.getItem('flickrId')}`)
-    }
 
     return (
         <>
             {template === 'admin' ? 
                 <Row>
                     <FormFolder />
-                    <button onClick={regenerateDB}>GO</button>
-                </Row> 
+                </Row>
             : null}
             <Row>
-                {folders.length ? 
-                    generateFolders()
-                : null }
+                <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '15px' }}>
+                    <Title />
+                    <DiscoverButton onClick={() => setShowFolders(true)}>Découvrir</DiscoverButton>
+                </div>
             </Row>
-            
+            {showFolders ?
+            <FolderContainer>
+                <Row>
+                    {folders.length ?
+                        generateFolders()
+                    : null }
+                </Row>
+            </FolderContainer>
+            : null}
+            <Background />
         </>
     );
 }

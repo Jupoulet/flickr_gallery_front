@@ -29,7 +29,7 @@ const ImgLoader = ({ location, src, folderTitle, folderId }) => {
                     src={src} variant="top" 
                     style= {{
                         opacity: loaded ? '1' : '0',
-                        maxHeight: '100%',
+                        maxHeight: '285px',
                         maxWidth: src ? '100%' : '100px',
                         margin: src ? 'auto' : '1em auto'
                     }}
