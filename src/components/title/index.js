@@ -22,7 +22,7 @@ const StyledTitleContainer = styled.div`
 const Title = () => {
     return (
         <StyledTitleContainer>
-            <h1>La gallerie d'Olivier</h1>
+            <h1>La galerie d'Olivier</h1>
         </StyledTitleContainer>
     );
 }
