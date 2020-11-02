@@ -33,9 +33,7 @@ const Folder = ({ template, location, match }) => {
                 return {
                     ...photo,
                     originalAlt: photo.title,
-                    originalTitle: photo.title,
-                    original: getUrlImage(photo.file, '3k'),
-                    thumbnail: getUrlImage(photo.file, 't')
+                    originalTitle: photo.title
                 }
             }))
             setReady(true)
