@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { Card as BCard, Image} from 'react-bootstrap'
+import React from 'react';
+import { Card as BCard } from 'react-bootstrap'
 import LazyLoad from 'react-lazy-load'
 import ImgLoader from './ImgLoader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

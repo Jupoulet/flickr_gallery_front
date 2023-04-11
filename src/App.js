@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   withRouter,
   Switch,
@@ -10,15 +10,12 @@ import axios from 'axios'
 
 import Home from './pages/Home';
 import Folder from './pages/Folder';
-import SideNavBar from './components/SideNavBar';
 import Gallery from './pages/Gallery';
 import Login from './pages/Login';
-import Background from './components/background/Background'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import GlobalStyle from './globalStyle';
-import { Container } from 'react-bootstrap';
 import endpoints from './config/endpoints'
 import credentials from './config/credentials'
 import Photo from './pages/Photo';
@@ -36,7 +33,7 @@ const Wrapper = styled.div`
 `
 
 
-const App = ({ location, match, history }) => {
+const App = ({ location }) => {
   useEffect(() => {
     const isStillLogin = async (id) => {
       let result = await axios.get(`${BASE_API}/flickr/verify_login/${window.localStorage.getItem('flickrId')}`)
@@ -68,7 +65,6 @@ const App = ({ location, match, history }) => {
       <>
           <Switch>
             <>
-              {/* <SideNavBar /> */}
               <Wrapper isGallery={/gallery/.test(location.pathname)}>
                     <Route exact path="/"  render={() => {
                         if (isTokenValid()) {

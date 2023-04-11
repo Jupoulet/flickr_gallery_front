@@ -8,7 +8,6 @@ import Title from '../components/title'
 import Background from '../components/background/Background';
 
 import styled, { keyframes } from 'styled-components'
-import Folder from './Folder';
 
 const fadeIn = keyframes`
   0% {
@@ -57,24 +56,18 @@ const Home = ({
     }, [])
 
     const generateFolders = () => {
-        const arrToReturn = [];
-
-        folders.map((folder) => {
-            arrToReturn.push(
-                <Col className="col" xs={12} sm={12} md={3} lg={3} key={folder.id}>
-                    <Card
-                        template={template}
-                        title={folder.name}
-                        lengthPhotos={folder.photos.length}
-                        image={/https/.test(folder.mainPhoto) ? getUrlImage(folder.mainPhoto, 'md') : `https://jup.s3.eu-west-3.amazonaws.com/${folder.mainPhoto}`}
-                        description={folder.description}
-                        id={folder.id}
-                    />
-                </Col>
-            )
-        })
-
-        return arrToReturn;
+        return folders.map((folder) => (
+            <Col className="col" xs={12} sm={12} md={3} lg={3} key={folder.id}>
+                <Card
+                    template={template}
+                    title={folder.name}
+                    lengthPhotos={folder.photos.length}
+                    image={/https/.test(folder.mainPhoto) ? getUrlImage(folder.mainPhoto, 'md') : `https://jup.s3.eu-west-3.amazonaws.com/${folder.mainPhoto}`}
+                    description={folder.description}
+                    id={folder.id}
+                />
+            </Col>
+        ));
     }
 
     return (

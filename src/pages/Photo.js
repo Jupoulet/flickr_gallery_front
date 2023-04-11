@@ -25,7 +25,7 @@ const Photo = ({ location, match }) => {
             setPhoto(photo.data)
         }
         fetch()
-    }, [])
+    }, [match.params.id])
 
     const handleDelete = async () => {
         let result = await axios.delete(`${BASE_API}/photos/${photo.id}`)

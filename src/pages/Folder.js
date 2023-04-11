@@ -20,7 +20,7 @@ const FolderTitle = styled.h1`
 `
 
 
-const Folder = ({ template, location, match }) => {
+const Folder = ({ template, match }) => {
     const [photos, setPhotos] = useState([])
     const [ready, setReady] = useState(false)
     const [folder, setFolder] = useState(null)
@@ -63,9 +63,7 @@ const Folder = ({ template, location, match }) => {
     }
 
     const generatePhotos = () => {
-        const arrToReturn = [];
-        photos.map((photo) => {
-            arrToReturn.push(
+        return photos.map((photo) => (
                 <Col xs={4} sm={4} md={3} lg={2} xl={2} style={{ height: '135px', marginBottom: '1em'}}>
                     {template !== 'admin' ?
                         <Link to={{
@@ -90,9 +88,7 @@ const Folder = ({ template, location, match }) => {
                     }
                 </Col>
             )
-        })
-        return arrToReturn;
-
+        );
     }
     const handleCloseModal = () => setShowDeleteWarning(false)
     const handleOpenModal = () => setShowDeleteWarning(true)

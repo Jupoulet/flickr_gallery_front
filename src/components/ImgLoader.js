@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Card } from 'react-bootstrap'
-import { withRouter, useHistory, Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import oval from '../assets/oval.svg'
 
 const ContainerSVG = styled.div`
@@ -18,7 +18,7 @@ const ImgLoader = ({ location, src, folderTitle, folderId }) => {
         setLoaded(true)
     }
 
-    return src && (
+    return src ? (
         <>
             <Link to={{
                 pathname: /^\/admin/.test(location.pathname) ? `/admin/folder/${folderId}` : `/folder/${folderId}`,
@@ -37,7 +37,7 @@ const ImgLoader = ({ location, src, folderTitle, folderId }) => {
                 {loaded ? null : <ContainerSVG><img src={oval} alt="loader" /></ContainerSVG>}
             </Link>
         </>
-    ) || null;
+    ) : null;
 }
 
 export default withRouter(ImgLoader);
