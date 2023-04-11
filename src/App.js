@@ -55,10 +55,10 @@ const App = ({ location, match, history }) => {
 
   const isTokenValid = () => {
     let localToken = window.localStorage.getItem('user_token')
-    if (!localToken) { return false }
+    if (!localToken) return false;
     let payload = verifyToken(localToken)
-    if (!payload) { return false }
-    else if (payload.password === PASSWORD) { return true }
+    if (!payload) return false;
+    if (payload.password === PASSWORD) return true;
     return false
   }
 

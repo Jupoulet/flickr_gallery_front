@@ -3,7 +3,7 @@ import { Card, Row, Col, Container, Button, Form, Alert } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 import endpoints from '../config/endpoints'
 import credentials from '../config/credentials'
-import { createToken, verifyToken } from '../controllers/jwt'
+import { createToken } from '../controllers/jwt'
 const { BASE_API } = endpoints;
 const { PASSWORD } = credentials
 
