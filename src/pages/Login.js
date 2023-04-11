@@ -37,7 +37,7 @@ const Login = ({ location, history }) => {
                     <Card style={{width: '20em'}}>
                         {!location.state || location.state.user ?
                             <Card.Body>
-                                <Card.Title><span aria-label="warning" role="image">⚠️</span> Mot de passe requis</Card.Title>
+                                <Card.Title><span aria-label="warning" role="img">⚠️</span> Mot de passe requis</Card.Title>
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Group controlId="password">
                                         <Form.Label>Mot de passe</Form.Label>
@@ -52,7 +52,7 @@ const Login = ({ location, history }) => {
                             </Card.Body>
                          :  <Card.Body>
                                 <Card.Img src="https://lesrseauxsociauxdanslesentreprises.files.wordpress.com/2016/02/flickr-logo.jpg" variant="top" />
-                                <Card.Title><span aria-label="warning" role="image">⚠️</span> Admin only</Card.Title>
+                                <Card.Title><span aria-label="warning" role="img">⚠️</span> Admin only</Card.Title>
                                 <Card.Text>Connexion à Flickr nécessaire. Seul un seul compte est autorisé à modifier, ajouter des photos.</Card.Text>
                                 <a href={`${BASE_API}/flickr`}>
                                     <Button variant="primary">
