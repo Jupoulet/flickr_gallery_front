@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 .row {
   padding-top: 1em;
 }
@@ -6,7 +7,6 @@
   margin-bottom: 1em;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 
 .btn-light {
   color: #0069d9;

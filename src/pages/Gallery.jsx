@@ -1,11 +1,11 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
-import { withRouter, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 import { getUrlImage } from '../controllers/tools';
-import ImageComponent from '../components/image';
+import ImageComponent from '../components/image/index.jsx';
 
 
 const Gallery = ({ items, location }) => {
@@ -30,4 +30,4 @@ const Gallery = ({ items, location }) => {
     );
 }
 
-export default withRouter(Gallery);
+export default Gallery;

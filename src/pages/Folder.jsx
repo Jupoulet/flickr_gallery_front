@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Image, Button, Modal } from 'react-bootstrap'
-import { withRouter, Link } from 'react-router-dom'
-import FormPhotos from '../components/FormPhotos'
-import FormFolder from '../components/FormFolder'
+import { Link } from 'react-router-dom'
+import FormPhotos from '../components/FormPhotos.jsx'
+import FormFolder from '../components/FormFolder.jsx'
 import { getFolder } from '../controllers/API'
 import { getUrlImage } from '../controllers/tools'
 import styled from 'styled-components';
@@ -160,4 +160,4 @@ const Folder = ({ template, location, match }) => {
     );
 }
 
-export default withRouter(Folder);
+export default Folder;

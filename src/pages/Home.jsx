@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card'
-import FormFolder from '../components/FormFolder'
+import FormFolder from '../components/FormFolder.jsx'
 import { Row, Col } from 'react-bootstrap'
 import { getFolders } from '../controllers/API'
 import { getUrlImage } from '../controllers/tools'
-import Title from '../components/title'
-import Background from '../components/background/Background';
+import Title from '../components/title/index.jsx'
+import Background from '../components/background/Background.jsx';
 
 import styled, { keyframes } from 'styled-components'
-import Folder from './Folder';
+import Folder from './Folder.jsx';
 
 const fadeIn = keyframes`
   0% {

@@ -2,34 +2,33 @@
   "name": "picard_family_front",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.28",
-    "@fortawesome/free-regular-svg-icons": "^5.13.0",
-    "@fortawesome/free-solid-svg-icons": "^5.13.0",
-    "@fortawesome/react-fontawesome": "^0.1.9",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "axios": "^0.19.2",
-    "bootstrap": "^4.4.1",
-    "jsonwebtoken": "^8.5.1",
-    "moment": "^2.26.0",
-    "react": "^16.13.1",
-    "react-bootstrap": "^1.0.1",
-    "react-dom": "^16.13.1",
-    "react-image-gallery": "^1.0.7",
-    "react-lazy-load": "^3.0.13",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "serve": "^11.3.0",
-    "styled-components": "^5.1.0"
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "axios": "^1.4.0",
+    "bootstrap": "^5.3.0",
+    "moment": "^2.29.4",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.8.0",
+    "react-dom": "^18.2.0",
+    "react-image-gallery": "^1.3.0",
+    "react-router-dom": "^6.14.0",
+    "styled-components": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.4.0"
   },
   "scripts": {
-    "deploy": "npm run build && serve -s build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && serve -s dist"
   },
   "eslintConfig": {
     "extends": "react-app"

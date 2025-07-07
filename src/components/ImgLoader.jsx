@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Card } from 'react-bootstrap'
-import { withRouter, useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import oval from '../assets/oval.svg'
 
 const ContainerSVG = styled.div`
@@ -40,4 +40,4 @@ const ImgLoader = ({ location, src, folderTitle, folderId }) => {
     ) || null;
 }
 
-export default withRouter(ImgLoader);
+export default ImgLoader;

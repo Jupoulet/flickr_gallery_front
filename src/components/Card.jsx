@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import { Card as BCard, Image} from 'react-bootstrap'
-import LazyLoad from 'react-lazy-load'
-import ImgLoader from './ImgLoader'
+import ImgLoader from './ImgLoader.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 
@@ -26,9 +25,9 @@ const Card = ({
                 /> : null}
                 
             </BCard.Header>
-            <LazyLoad style={{ display: 'flex', height: '210px', cursor: 'pointer'}}>
+            <Suspense style={{ display: 'flex', height: '210px', cursor: 'pointer'}}>
                 <ImgLoader src={image} folderTitle={title} folderId={id} />
-            </LazyLoad>
+            </Suspense>
             <BCard.Body style={{fontSize: '12px', fontStyle: 'italic'}}>{description || ''}</BCard.Body>
         </BCard>
     );

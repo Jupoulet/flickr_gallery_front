@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom'
+
 import axios from 'axios';
 import endpoints from '../config/endpoints'
 import { getUrlImage } from '../controllers/tools'
@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 
 import { Row, Col, Image, Button, Modal } from 'react-bootstrap';
-import FormPhotos from '../components/FormPhotos';
+import FormPhotos from '../components/FormPhotos.jsx';
 
 const FolderTitle = styled.h1`
     color: floralwhite;
@@ -68,4 +68,4 @@ const Photo = ({ location, match }) => {
     );
 }
 
-export default  withRouter(Photo);
+export default Photo;
