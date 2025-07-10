@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome, faWrench } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 
@@ -18,7 +18,8 @@ const Container = styled.div`
     border-right-color: #a4b0be;
 `
 
-const SideNavBar = ({ location }) => {
+const SideNavBar = () => {
+    const location = useLocation();
     return !/gallery/.test(location.pathname) ? (
         <Container>
             <Link to='/'>

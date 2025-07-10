@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Row, Col, Container, Button, Form, Alert } from 'react-bootstrap'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import endpoints from '../config/endpoints'
 import credentials from '../config/credentials'
@@ -7,8 +8,9 @@ import { createToken } from '../controllers/auth'
 const { BASE_API } = endpoints;
 const { PASSWORD } = credentials
 
-const Login = ({ location, history }) => {
+const Login = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const [password, setPassword] = useState('')
     const [isSubmiting, setIsSubmiting] = useState(false)
     const [message, setMessage] = useState('')
@@ -24,7 +26,7 @@ const Login = ({ location, history }) => {
         if (password === PASSWORD) {
             let token = createToken(password)
             window.localStorage.setItem('user_token', token)
-            history.push('/')
+            navigate('/')
         } else {
             setMessage('Mauvais mot de passe')
         }

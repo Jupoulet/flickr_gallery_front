@@ -1,14 +1,15 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 import { getUrlImage } from '../controllers/tools';
 import ImageComponent from '../components/image/index.jsx';
 
 
-const Gallery = ({ items, location }) => {
+const Gallery = ({ items }) => {
+    const location = useLocation();
     items = (items || location.state.items).map((photo) => {
         return {
             ...photo,

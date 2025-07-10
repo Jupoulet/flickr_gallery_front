@@ -4,7 +4,7 @@ import axios from 'axios';
 import endpoints from '../config/endpoints'
 import { getUrlImage } from '../controllers/tools'
 import styled from 'styled-components';
-
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { Row, Col, Image, Button, Modal } from 'react-bootstrap';
 import FormPhotos from '../components/FormPhotos.jsx';
@@ -16,21 +16,23 @@ const FolderTitle = styled.h1`
 
 const { BASE_API } = endpoints
 
-const Photo = ({ location, match }) => {
+const Photo = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
     const [photo, setPhoto] = useState(null)
     const [showModal, setShowModal] = useState(false)
     useEffect(() => {
         const fetch = async () => {
-            let photo = await axios.get(`${BASE_API}/photos/${match.params.id}`)
+            let photo = await axios.get(`${BASE_API}/photos/${id}`)
             setPhoto(photo.data)
         }
         fetch()
-    }, [])
+    }, [id])
 
     const handleDelete = async () => {
         let result = await axios.delete(`${BASE_API}/photos/${photo.id}`)
         if (result) {
-            window.location.href = `/admin/folder/${photo.folderId}`
+            navigate(`/admin/folder/${photo.folderId}`)
         }
     }
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Image, Button, Modal } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useParams, useLocation, useNavigate } from 'react-router-dom'
 import FormPhotos from '../components/FormPhotos.jsx'
 import FormFolder from '../components/FormFolder.jsx'
 import { getFolder } from '../controllers/API'
@@ -20,14 +20,17 @@ const FolderTitle = styled.h1`
 `
 
 
-const Folder = ({ template, location, match }) => {
+const Folder = ({ template }) => {
+    const { id } = useParams();
+    const location = useLocation();
+    const navigate = useNavigate();
     const [photos, setPhotos] = useState([])
     const [ready, setReady] = useState(false)
     const [folder, setFolder] = useState(null)
     const [showDeleteWarning, setShowDeleteWarning] = useState(false)
     useEffect(() => {
         let fetch = async () => {
-            let folder = await getFolder(match.params.id)
+            let folder = await getFolder(id)
             setFolder(folder)
             setPhotos(folder.photos.map((photo) => {
                 return {
@@ -40,7 +43,7 @@ const Folder = ({ template, location, match }) => {
         }
         fetch();
 
-    }, [match])
+    }, [id])
 
     const getNiceIndexesPhotos = (id) => {
         let index = photos.map(p => p.id).indexOf(id)
@@ -68,10 +71,7 @@ const Folder = ({ template, location, match }) => {
             arrToReturn.push(
                 <Col xs={4} sm={4} md={3} lg={2} xl={2} style={{ height: '135px', marginBottom: '1em'}}>
                     {template !== 'admin' ?
-                        <Link to={{
-                            pathname: `/gallery/${folder.id}`,
-                            state: { items: getNiceIndexesPhotos(photo.id) }
-                        }}>
+                        <Link to={`/gallery/${folder.id}`} state={{ items: getNiceIndexesPhotos(photo.id) }}>
                             <Image rounded src={/https/.test(photo.file) ? getUrlImage(photo.file, 'md') : `https://jup.s3.eu-west-3.amazonaws.com/${folder.mainPhoto}`} style={{ maxWidth: '100%', maxHeight: '100%' }}/>
                         </Link>
                     :
@@ -100,7 +100,7 @@ const Folder = ({ template, location, match }) => {
     const deleteFolder = async () => {
         // Perform delete on folder
         await axios.delete(`${BASE_API}/folders/${folder.id}`)
-        window.location.href = '/admin'
+        navigate('/admin')
     }
 
     return ready && (
